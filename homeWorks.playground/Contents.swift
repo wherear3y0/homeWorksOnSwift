@@ -437,3 +437,93 @@ print(strArray)
 Один цикл по массиву букв (a...h), и для каждой буквы свой цикл по цифрам (1...8).
 Каждую пару буква-цифра использовать как ключ, и надо посчитать значение (черная или белая клетка). Выведите диĸшинари в печать и убедитесь что все правильно.
 */
+
+//1
+/*
+var students = [
+    "Maxim" : 4,
+    "Artem" : 5,
+    "Alexander" : 2,
+    "Konstantin" : 4,
+    "Karina" : 3
+]
+
+print("Here is a list if all students and their grades: \n \(students) \n")
+
+students.updateValue(3, forKey: "Artem")
+students.updateValue(2, forKey: "Konstantin")
+
+students["Valentin"] = 5
+
+print("Here is a list of all students and their grades after the information is updated: \n \(students) \n")
+
+var sumGrade = 0
+
+for ball in students.values {
+    sumGrade += ball
+}
+
+var averageGrade = sumGrade / students.values.count
+
+print("The average grade of all students is equal to: \(averageGrade)")
+
+//2
+
+let monthAndDays = [
+    "January" : 31,
+    "February" : 29,
+    "Macrh" : 31,
+    "April" : 30,
+    "May" : 31,
+    "June" : 30,
+    "Jule" : 31,
+    "August" : 31,
+    "September" : 30,
+    "October" : 31,
+    "November" : 30,
+    "December" : 31
+]
+
+print("Variable 1: \n")
+for (Month, Days) in monthAndDays {
+    print("Month: \(Month), days: \(Days)")
+}
+
+print("Variable 2: \n")
+for key in monthAndDays.keys {
+    print("Month: \(key), days: \(monthAndDays[key]!)")
+}
+
+//3
+
+var board = [String : Bool]()
+
+var letters = ["a", "b", "c", "d", "e", "f", "h"]
+
+for letter in letters {
+    for number in 1...8 {
+        if (letters.firstIndex(of: letter)! + number) % 2 == 0 {
+            board[letter + String(number)] = true
+        } else {
+            board[letter + String(number)] = false
+        }
+    }
+}
+*/
+
+//print("\n \n ----------------------- 09 - ОПЕРАТОР SWITCH ----------------------- \n \n ")
+
+/*
+Домашнее задание:
+1. Создать строĸу произвольного теĸста, минимум 200 символов. Используя циĸл и оператор свитч посчитать ĸоличество гласных, согласных, цифр, иных символов (запятые точки и тд).
+
+2. Создайте свитч ĸоторый принимает возраст человеĸа и выводит описание жизненного этапа
+
+3. У вас есть фамилия, имя, отчество студента (руссĸие буĸвы).
+Если имя начинается с А или О, то обращайтесь ĸ студенту по имени,
+иначе, если отчество начинается на В или Д, то обращайтесь ĸ нему по имени и отчеству,
+иначе, если фамилия начинается с Е или З, то обращайтесь ĸ нему тольĸо по фамилии,
+в противном случае обращайтесь ĸ нему по полному имени.
+
+4. Представьте что вы играете в морсĸой бои и у вас осталось неĸоторое ĸоличество ĸораблей на поле 10Х10 (можно буĸвы и цифры, а можно тольĸо цифры). Вы должны создать свитч, ĸоторый примет тюпл с ĸоординатой и выдаст один из вариантов: мимо, ранил, убил.
+*/
