@@ -1,4 +1,4 @@
-// MARK: 1 задание
+// MARK: 1 задание : ОСНОВЫ
 
 //print("\n \n ----------------------- 01 - ОСНОВЫ ----------------------- \n \n ")
 
@@ -16,7 +16,7 @@ let name = "Maxim", lastName = "Kondratkov", middleName = "Andreevitch", age = 2
 print("Date: 24.04.2010 \nExpriment number: #3062 \nData on the subject: \n Name: \(name) \n Last name: \(lastName) \n Middle name: \(middleName) \n Age: \(age) \n Height: \(height)")
 */
 
-// MARK: 2 задание
+// MARK: 2 задание : РАБОТА С БАЗОВЫМИ ТИПАМИ
 
 //print("\n \n ----------------------- 02 - РАБОТА С БАЗОВЫМИ ТИПАМИ ----------------------- \n \n ")
 
@@ -51,7 +51,7 @@ if Double(oneOne) < twoTwo {
 print("hello")
 */
 
-// MARK: 3 задание
+// MARK: 3 задание : ТЮЛЬПЫ
 
 //print("\n \n ----------------------- 03 - ТЮЛЬПЫ ----------------------- \n \n ")
 
@@ -118,7 +118,7 @@ if (parameteres.pushUps > parameteresKarina.pushUps) {
 
 */
 
-// MARK: 4 задание
+// MARK: 4 задание : ОПЦИОНАЛЬНЫЕ ТИПЫ
 
 //print("\n \n ----------------------- 04 - ОПЦИОНАЛЬНЫЕ ТИПЫ ----------------------- \n \n ")
 
@@ -248,7 +248,7 @@ if student3.carNumber == nil && student3.graduate == nil {
 
 */
 
-// MARK: 5 задание
+// MARK: 5 задание : БАЗОВЫЕ ОПЕРАТОРЫ
 
 //print("\n \n ----------------------- 05 - БАЗОВЫЕ ОПЕРАТОРЫ ----------------------- \n \n ")
 
@@ -278,7 +278,7 @@ let coord = (x: 35, y: 2)
 print("Клетка \((coord.x + coord.y) % 2 == 0 ? "Белого" : "Черного") цвета")
 */
 
-// MARK: 6 задание
+// MARK: 6 задание : СТРОКИ
 
 //print("\n \n ----------------------- 06 - СТРОКИ ----------------------- \n \n ")
 
@@ -345,7 +345,7 @@ for i in alphabet {
 
 */
 
-// MARK: 7 задание
+// MARK: 7 задание : МАССИВЫ
 
 //print("\n \n ----------------------- 07 - МАССИВЫ ----------------------- \n \n ")
 
@@ -464,7 +464,7 @@ for c in alphabet {
 print(strArray)
 */
 
-// MARK: 8 задание
+// MARK: 8 задание : ДИКШИНАРИ
 
 //print("\n \n ----------------------- 08 - ДИКШИНАРИ ----------------------- \n \n ")
 
@@ -557,7 +557,7 @@ for letter in letters {
 }
 */
 
-// MARK: 9 задание
+// MARK: 9 задание : SWITCH
 
 //print("\n \n ----------------------- 09 - ОПЕРАТОР SWITCH ----------------------- \n \n ")
 
@@ -656,7 +656,7 @@ switch(coord.x, coord.y) {
 }
 */
 
-// MARK: 10 задание
+// MARK: 10 задание : ФУНКЦИИ
 
 //print("\n \n ----------------------- 10 - ФУНКЦИИ ----------------------- \n \n ")
 
@@ -808,7 +808,7 @@ let z = fixString(yourString: str)
 print(z)
 */
 
-// MARK: 11 задание
+// MARK: 11 задание : КЛОУЖЕРЫ
 
 //print("\n \n ----------------------- 11 - КЛОУЖЕРЫ ----------------------- \n \n ")
 
@@ -833,5 +833,140 @@ print(z)
 4. Создайте произвольную строĸу. Преобразуйте ее в массив букв (в виде строк). Используя метод массивов sorted - отсортируйте строĸу таĸ, чтобы вначале шли гласные в алфавитном порядĸе, потом согласные, потом цифры, а потом символы
 */
 
+/*
 
+// example for me
+
+var array = [1,4,3,5,2,32,5,54,24,543,21]
+
+func filterArray(array: [Int], filter: (Int) -> Bool) -> [Int] {
+    var filtered = [Int]()
     
+    for i in array{
+        if filter(i) {
+            filtered.append(i)
+        }
+    }
+    return filtered
+}
+
+filterArray(array: array, filter: {(i: Int) -> Bool in
+        return i % 2 == 0
+})
+
+filterArray(array: array, filter: {i in i & 3 == 0})
+filterArray(array: array, filter: {$0 % 2 == 1})
+let a = filterArray(array: array) {i in i % 5 == 0}
+
+// 1
+
+func test1 (func2: () -> ()) {
+    for i in 1...3{
+        print("\(i)")
+    }
+}
+
+test1 {
+    for j in 1...3 {
+        print("\(j)")
+    }
+}
+
+//2
+
+let intArray = [1,4,2,5, 6, 23, 54, 21, 2, 0]
+
+var upDic = intArray.sorted(by: {c1, c2 in return c1 < c2})
+var downDic = intArray.sorted(by: {c1, c2 in return c1 > c2})
+
+print("\(intArray)")
+print("\(upDic)")
+print("\(downDic)")
+
+//3
+
+var array2 = [1,4,2,5, 6, 23, 54, 21, 2, 0]
+
+
+func findMaxMin (intArray: [Int], filtered: (Int, Int?) -> Bool) -> Int {
+    
+    var opt : Int?
+    
+    for i in intArray {
+        if opt == nil {
+            opt = i
+        } else {
+            if filtered(i, opt) {
+                opt = i
+            }
+        }
+    }
+    
+    return opt!
+}
+
+var maxValue = findMaxMin(intArray: array2, filtered: {i, opt in return i > opt!})
+var minValue = findMaxMin(intArray: array2, filtered: {$0 < $1!})
+
+print("array is \(array2), and his max value \(maxValue) and his min value is \(minValue)")
+
+//4
+
+let inputString = "Hello, World! 123"
+var charactersArray = Array(inputString)
+
+func isVowel(_ char: Character) -> Bool {
+    let vowels: Set<Character> = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+    return vowels.contains(char)
+}
+
+let sortedCharacters = charactersArray.sorted { (char1, char2) -> Bool in
+    if isVowel(char1) && !isVowel(char2) {
+        return true
+    } else if !isVowel(char1) && isVowel(char2) {
+        return false
+    } else if char1.isLetter && !char2.isLetter {
+        return true
+    } else if !char1.isLetter && char2.isLetter {
+        return false
+    } else if char1.isNumber && !char2.isNumber {
+        return true
+    } else if !char1.isNumber && char2.isNumber {
+        return false
+    } else {
+        return char1 < char2
+    }
+}
+
+let sortedString = String(sortedCharacters)
+print(sortedString)
+
+*/
+
+
+// MARK: 12 задание : ЭНУМЫ
+
+//print("\n \n ----------------------- 12 - ЭНУМЫ ----------------------- \n \n ")
+
+/**
+1. Создать энум с шахматными фигруами (ĸороль, ферзь и т.д.). Каждая фигура должна иметь цвет (associated values) белый либо черный (надеюсь намеĸ понят, какого типа должен быть цвет), а таĸ же
+буĸву колонки и цифру ряда для позиции. Фактически создав инстанс (экземпляр энума), который будет являться шахматной фигурой, и который будет содержать associated values: Цвет и позицию на доске.
+Создайте (инициализируйте) пару фигур с расположением на досĸе, таĸ, чтобы черному ĸоролю был мат :)
+Сделать надо только функционал, без отображения на доске.
+
+2. Поместите эти фигуры в массив фигур. Сделайте таĸ, чтобы энумовсĸие значения имели
+rawValue типа String для соотвевия, например королю - "King" и т.д.. Каждому типу фигуры
+установите соответствующее английсĸое название.
+Создайте первую фунĸцию, ĸоторая принимает одну фигуру, выводит в ĸонсоль
+(теĸстово, без юниĸода) название фигуры, цвет и
+расположение.
+Создайте вторую функцию, которая принимает массив фигур и в цикле вызывает первую функцию для печати всех фигур. Например: "белая пешка - а2"
+
+3. Создайте функцию, которая будет рисовать эту доску используя юникоды. Функция принимает массив фигур и рисовала доску в принте. Там где есть фигура - её значек, а там где нет фигуры - пустая клетка определенного цвета.
+
+4. Создайте фунĸцию, ĸоторая будет принимать шахматную фигуру и тюпл новой позиции. Эта фунĸция должна передвигать фигуру на новую позицию, причем перемещение должно быть легальным: нельзя передвинуть фигуру за пределы поля
+! и нельзя двигать фигуры таĸ, ĸаĸ нельзя их двигать в реальных шахматах (для мегамонстров
+программирования)!.
+Вызовите эту фунĸцию для несĸольĸих фигур и распечатайте поле снова.
+*/
+
