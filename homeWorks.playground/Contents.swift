@@ -970,7 +970,7 @@ rawValue типа String для соотвевия, например корол�
 */
 
 //1
-
+/*
 enum chess {
     case king(color: colorFirure, position: (y: vertical, x: horizontal))               /// король
     case queen(color: colorFirure, position: (y: vertical, x: horizontal))              /// королева
@@ -1119,7 +1119,7 @@ func printBoard(_ piece: chess, position:(y: vertical, x: horizontal)) {
 }
 
 printBoard(qeenBlack, position: (y: .e, x: .eight))
-
+*/
 //⬜️⬛️⬜️⬛️♛⬛️⬜️⬛️
 //⬛️⬜️⬛️⬜️⬛️⬜️⬛️⬜️
 //⬜️⬛️⬜️⬛️⬜️⬛️⬜️⬛️
@@ -1150,3 +1150,262 @@ printBoard(qeenBlack, position: (y: .e, x: .eight))
 используя струĸтуры либо ĸлассы
 */
 
+//example for me
+/*
+class examle {
+    var name : String
+    var age : Int
+    
+    /// Это инициализация уже со значениями чтобы не вписывать их при создании объекта
+    init(){
+        name = "No name"
+        age = 0
+    }
+    ///Это инициализация чтобы при создании объекта можно было ввписать значения
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+var strExample = examle(name: "bob", age: 12)
+
+struct example {
+    /// Разница в том что в структуре не нужно инициализировать переменные а они сразу уже будут удобно иницализированны
+    var name : String
+    var age : Int
+}
+
+var strExpaf = example(name: "bob", age: 12)
+
+//1
+
+struct Student {
+    
+    var name : String
+    var surName : String
+    var ageOfYear : Int
+    var middleGraduate : Double
+    
+}
+
+var student1 = Student(name: "Alex", surName: "Scutarentco", ageOfYear: 1990, middleGraduate: 3.5)
+var student2 = Student(name: "Maxim", surName: "Ivanov", ageOfYear: 2000, middleGraduate: 4.5)
+var student3 = Student(name: "Alexandr", surName: "Seredin", ageOfYear: 2003, middleGraduate: 2.5)
+var student4 = Student(name: "Marya", surName: "Seredin", ageOfYear: 2003, middleGraduate: 4.5)
+
+var arrayOfStudents = [student1, student2, student3, student4]
+
+func printStudents(array: [Student]) {
+    for i in 0..<array.count {
+        print("\(i+1): \(array[i].name) \(array[i].surName) year of birth: \(array[i].ageOfYear) and his middle graduade is \(array[i].middleGraduate)")
+    }
+}
+
+printStudents(array: arrayOfStudents)
+
+//1.2
+print("\nsorded by middle graduate ------------------------------ \n")
+
+arrayOfStudents = arrayOfStudents.sorted(by: { (student1, student2) in
+    return student1.middleGraduate > student2.middleGraduate
+})
+
+printStudents(array: arrayOfStudents)
+
+//1.3
+print("\nsorted by FIO ------------------------------ \n")
+
+arrayOfStudents = arrayOfStudents.sorted(by: { (student1, student2) in
+    if student1.surName != student2.surName {
+        return student1.surName.uppercased() < student2.surName.uppercased()
+    } else {
+        return student1.name.uppercased() < student2.name.uppercased()
+    }
+})
+
+printStudents(array: arrayOfStudents)
+
+//1.5
+print("\n---------------------------\n")
+var allStudents = arrayOfStudents
+
+allStudents[1].middleGraduate = 0.0
+printStudents(array: arrayOfStudents)
+print("------")
+printStudents(array: allStudents)
+
+/// 2:  для структуры получилось в 5 не поменялось значение в оригинальной структуре, а вот для класса поменялось
+
+//3
+
+struct Coordinate {
+    var letter : Character
+    var number : Int
+    
+}
+
+class ChessMan {
+    
+    enum chessManType : Int {
+        case king
+        case queen
+        case pawn
+        case knight
+        case rook
+        case bishop
+        
+    }
+    
+    enum chessManColor {
+        case black
+        case white
+        
+        var enemyColor: chessManColor {
+            self == .white ? .black : .white
+        }
+    }
+    
+    let type : chessManType
+    let color : chessManColor
+    var coordinate : Coordinate?
+    
+    var unicode : Character{
+        if self.color == .white {
+            return Character(UnicodeScalar(0x2654 + type.rawValue)!)
+        }
+        return Character(UnicodeScalar(0x265A + type.rawValue)!)
+    }
+    
+    init(type: chessManType, color: chessManColor) {
+        self.type = type
+        self.color = color
+        
+    }
+    
+    init(type : chessManType, color : chessManColor, coordinate : Coordinate) {
+        self.type = type
+        self.color = color
+        self.coordinate = coordinate
+    }
+    
+    func setCoord(coordinate: Coordinate) {
+        self.coordinate = coordinate
+    }
+}
+
+class ChessBoard {
+    
+    var desk = [Character : [Int : ChessMan]]()
+    
+    var letters = [Character("A") : 1, "B" : 2, "C" : 3, "D" : 4, "E" : 5, "F" : 6, "G" : 7, "H" : 8]
+    
+    init() {
+        for i in letters.keys {
+            desk[i] = [:]
+        }
+    }
+    
+    func setFigure(chessman: ChessMan) {
+        if let coordinates = chessman.coordinate, checkCoords(coordinates) {
+            desk[coordinates.letter]![coordinates.number] = chessman
+        }
+    }
+    
+    func checkCoords(_ coordinates: Coordinate) -> Bool {
+        letters.keys.contains(coordinates.letter) && (1...8).contains(coordinates.number)
+    }
+    
+    func printDesk() {
+        for row in stride(from: 8, to: 0, by: -1){
+            print(row, terminator: " ")
+            for (i, column) in letters.keys.sorted().enumerated() {
+                if let figure = self.desk[column]?[row] {
+                    print(figure.unicode, terminator: " ")
+                } else {
+                    let color = (row + i + 1) % 2 == 0 ? "⬜️" : "⬛️"
+                    print(color, terminator: " ")
+                }
+            }
+            print()
+        }
+        print("  4A B C D E F G H")
+    }
+    
+    func deleteFigure(figure: ChessMan) {
+        desk[figure.coordinate!.letter]![figure.coordinate!.number] = nil
+    }
+    
+    func moveFigure(figure : ChessMan, to newCorrds: Coordinate) {
+        switch figure.type {
+        case .pawn:
+            if !isPossibleMovePawn(figure: figure, to: newCorrds) {
+                print("Ход невозможен")
+                return
+            }
+            deleteFigure(figure: figure)
+            figure.setCoord(coordinate: newCorrds)
+            desk[newCorrds.letter]![newCorrds.number] = figure
+          
+        default:
+            return
+        }
+    }
+    
+    func isPossibleMovePawn(figure: ChessMan, to newCoords: Coordinate) -> Bool {
+        if !checkCoords(newCoords) {
+            return false
+        }
+        
+        let newColumn = letters[newCoords.letter]!
+        let newRow = newCoords.number
+        
+        let currentColumn = letters[figure.coordinate!.letter]!
+        let currentRow = figure.coordinate!.number
+        
+        switch (newColumn, newRow) {
+        case (currentColumn, currentRow + 1) where figure.color == .white : return true
+        case (currentColumn, currentRow - 1) where figure.color == .black : return true
+        case(currentColumn + 1, currentRow + 1), (currentColumn - 1, currentRow - 1):
+            if let currentFigure = desk[newCoords.letter]?[newRow], figure.color == .white,
+               currentFigure.color == figure.color.enemyColor {
+                return true
+            }
+        case(currentColumn + 1, currentRow - 1), (currentColumn - 1, currentRow - 1):
+            if let currentFigure = desk[newCoords.letter]?[newRow], figure.color == .black,
+               currentFigure.color == figure.color.enemyColor {
+                return true
+            }
+            return true
+        default: break
+        }
+        return false
+    }
+}
+
+
+let chessboard = ChessBoard()
+let blackKing = ChessMan(type: .king, color: .black, coordinate: .init(letter: "B", number: 4))
+let whitePawn = ChessMan(type: .pawn, color: .white, coordinate: Coordinate(letter: "A", number: 2))
+chessboard.setFigure(chessman: whitePawn)
+chessboard.setFigure(chessman: blackKing)
+chessboard.printDesk()
+*/
+// MARK: 14 задание : СВОЙСТВА
+
+//print("\n \n ----------------------- 14 - СВОЙСТВА ----------------------- \n \n ")
+
+/**
+0. Повторить ĸод Алеĸсея из уроĸа.
+
+1. Для этого же студента добавить свойства:
+-дата рождения (используя другую струĸтуру, которая содержит день, месяц, год)
+-возраст (computed вычисляется на основании датырождения)
+-ĸоличество лет учебы (computed начиная с 6 лет, либо 0 если возраст меньше чем 6)
+
+2. Создать струĸтуру "отрезоĸ", у ĸоторой два свойства - точĸа "А" и точĸа "В", ĸоторые в свою очередь тоже струĸтуры (не стандартные, а наши собственные).
+Таĸже отрезоĸ имеет вычисляемые свойства (они изменяют точĸи "А" и "В", если мы изменяем
+следующие свойства):
+-midPoint - середина отрезĸа. При её изменении, отрезоĸ смещается на тот же вектор целиком, т.е. точку А и точку В смещаем одинаково, как и мид-поинт.
+-длина отрезĸа. При изменении, точĸа "А" остается, а точĸа "В" изменяется.
+*/
