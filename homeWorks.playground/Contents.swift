@@ -1,3 +1,6 @@
+import Foundation
+
+
 // MARK: 1 задание : ОСНОВЫ
 
 //print("\n \n ----------------------- 01 - ОСНОВЫ ----------------------- \n \n ")
@@ -1409,3 +1412,131 @@ chessboard.printDesk()
 -midPoint - середина отрезĸа. При её изменении, отрезоĸ смещается на тот же вектор целиком, т.е. точку А и точку В смещаем одинаково, как и мид-поинт.
 -длина отрезĸа. При изменении, точĸа "А" остается, а точĸа "В" изменяется.
 */
+
+//0
+struct Student {
+    var firstName : String {
+        willSet {
+            print("will set " + newValue + " insted of " + firstName)
+        }
+        didSet {
+            print("did set " + firstName + " insted of " + oldValue)
+            firstName = firstName.capitalized
+        }
+        
+    }
+    
+    var lastName : String {
+        didSet {
+            lastName = lastName.capitalized
+        }
+    }
+    
+    var fullName : String {
+        return firstName + " " + lastName
+    }
+    
+    var yearOfBirth: Int
+    
+    var age: Int {
+            let currentYear = Calendar.current.component(.year, from: Date())
+            return currentYear - yearOfBirth
+        }
+    
+    var yearsOfEducation: Int {
+            let age = self.age // Получаем возраст из свойства age структуры
+            if age >= 6 {
+                return (6 - age) * -1
+            } else {
+                return 0
+            }
+        }
+}
+
+var student = Student(firstName: "Maxim", lastName: "Kondratkov", yearOfBirth: 1990)
+
+print(student.firstName)
+print(student.lastName)
+print(student.fullName)
+
+student.firstName = "Bob"
+
+print("student \(student.fullName) born in \(student.yearOfBirth) and hi is a \(student.age), so hi educate about a \(student.yearsOfEducation)")
+
+//2
+struct Segment {
+    struct Point {
+        var x: Double
+        var y: Double
+    }
+    
+    var pointA: Point
+    var pointB: Point
+    
+    var midPoint: Point {
+        get {
+            let midX = (pointA.x + pointB.x) / 2
+            let midY = (pointA.y + pointB.y) / 2
+            return Point(x: midX, y: midY)
+        }
+        set(newMidPoint) {
+            let deltaX = newMidPoint.x - midPoint.x
+            let deltaY = newMidPoint.y - midPoint.y
+            pointA.x += deltaX
+            pointA.y += deltaY
+            pointB.x += deltaX
+            pointB.y += deltaY
+        }
+    }
+    
+    var length: Double {
+        get {
+            let deltaX = pointB.x - pointA.x
+            let deltaY = pointB.y - pointA.y
+            return sqrt(deltaX * deltaX + deltaY * deltaY)
+        }
+        set(newLength) {
+            let ratio = newLength / length
+            let deltaX = (pointB.x - pointA.x) * ratio
+            let deltaY = (pointB.y - pointA.y) * ratio
+            pointB = Point(x: pointA.x + deltaX, y: pointA.y + deltaY)
+        }
+    }
+}
+
+var segment = Segment(pointA: Segment.Point(x: 0, y: 0), pointB: Segment.Point(x: 3, y: 4))
+print(segment.midPoint)
+print(segment.length)
+
+segment.midPoint = Segment.Point(x: 1, y: 1)
+print(segment.pointA)
+print(segment.pointB)
+
+segment.length = 7
+print(segment.pointB)
+
+
+// MARK: 15 задание : СВОЙСТВА ТИПОВ
+
+//print("\n \n ----------------------- 15 - СВОЙСТВА ТИПОВ ----------------------- \n \n ")
+
+
+/**
+1. Создать структуру “Описание файла” содержащую свойства:
+- путь к файлу
+- имя файла
+- максимальный размер файла на диске
+- путь к папке, содержащей этот файл
+- скрытый файл или нет
+- содержимое файла (можно просто симулировать контент)
+
+Главная задача - это использовать правильные свойства там, где нужно, чтобы не пришлось хранить одни и те же данные в разных местах и т.д. и т.п.
+
+2. Создайте энум, который будет представлять некую цветовую гамму. Этот энум должен быть типа Int и как raw значение должен иметь соответствующее 3 байтное представление цвета. Добавьте в этот энум 3 свойства типа: количество цветов в гамме, начальный цвет и конечный цвет.
+
+3. Создайте класс человек, который будет содержать имя, фамилию, возраст, рост и вес. Добавьте несколько свойств непосредственно этому классу чтобы контролировать:
+- минимальный и максимальный возраст каждого объекта
+- минимальную и максимальную длину имени и фамилии
+- минимально возможный рост и вес
+- создайте свойство, которое будет содержать количество созданных объектов этого класса
+ */
