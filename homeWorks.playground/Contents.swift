@@ -1540,3 +1540,150 @@ print(segment.pointB)
 - минимально возможный рост и вес
 - создайте свойство, которое будет содержать количество созданных объектов этого класса
  */
+/*
+struct DescriptionFile {
+    
+    static let folderPath = "/User/wherar3y0/desctop/swift/homeworks/ios/"
+    
+    static let maxSize = 1024
+    
+    lazy var extenion = ".playground"
+    
+    var fileName : String
+    
+    var size : Int {
+        didSet (oldSize) {
+            if size > DescriptionFile.maxSize {
+                size = oldSize
+            }
+        }
+    }
+    
+    var content : String
+    
+    var filePath : String {
+        DescriptionFile.folderPath + fileName
+    }
+    
+}
+
+var workFile = DescriptionFile(fileName: "file", size: 654, content: "some content")
+workFile.extenion
+workFile.filePath
+
+//2
+
+enum ColorRGB : Int{
+    static let blackHeic = 0x000000
+    static let whiteHeic = 0xFFFFFF
+    
+    case red = 0xFF0000
+    case green = 0x00FF00
+    case blue = 0x0000FF
+}
+
+func color (color: Int) -> () {
+    switch true {
+        case color == ColorRGB.red.rawValue : return print("Red")
+        case color == ColorRGB.green.rawValue : return print("Green")
+        case color == ColorRGB.blue.rawValue : return print("Blue")
+        case color == ColorRGB.blackHeic : return print("Black")
+        case color == ColorRGB.whiteHeic : return print("White")
+        case color < ColorRGB.blue.rawValue where color > ColorRGB.blackHeic : return print("Dark blue")
+    default : break
+    }
+}
+
+//3
+
+class Human {
+    
+    static let maxAge = 100
+    static let minAge = 1
+    
+    static let maxHeight = 210
+    static let minHeight = 30
+    
+    static let maxWeight = 350
+    static let minWeight = 30
+    
+    static let maxName = 35
+    static let minName = 0
+    
+    static let maxSurName = 45
+    static let minSurName = 0
+    
+    var name : String {
+        didSet {
+            name = name.capitalized
+            if name.count > Human.maxName || name.count < Human.minName { name = oldValue }
+        }
+    }
+    
+    var surName : String {
+        didSet {
+            surName = surName.capitalized
+            if surName.count > Human.maxSurName || surName.count < Human.minSurName { surName = oldValue }
+        }
+    }
+    
+    var weight : Int {
+        didSet {
+            if weight > Human.maxWeight || weight < Human.minWeight { weight = oldValue }
+        }
+    }
+    
+    var height : Int {
+        didSet {
+            if height > Human.maxHeight || height < Human.minHeight { height = oldValue }
+        }
+    }
+    
+    var age : Int {
+        didSet {
+            if age > Human.maxAge || age < Human.minAge { age = oldValue }
+        }
+    }
+    
+    var description: String {
+            return "Name: \(name), Surname: \(surName), Weight: \(weight), Height: \(height), Age: \(age)"
+        }
+    
+    init(name: String, surName: String, weight: Int, height: Int, age: Int) {
+        self.name = name
+        self.surName = surName
+        self.weight = weight
+        self.height = height
+        self.age = age
+    }
+}
+
+var human = Human(name: "alex", surName: "alex", weight: 95, height: 175, age: 34)
+print(human.description)
+human.weight = 1000
+print(human.description)
+*/
+// MARK: 16 задание : МЕТОДЫ
+
+//print("\n \n ----------------------- 16 - МЕТОДЫ ----------------------- \n \n ")
+
+ /**
+1
+   создать тип - комната с параметрами длина и ширина
+   создать тип - персонаж с параметрами позиции в комнате (можно еще добавить пару свойств типа имени или чего сами хотим)
+   реализовать функцию которая красиво распечатывает в консоле комнату и персонажа в ней (границы и персонаж внутри
+
+2
+   добавить метод персонажу идти (например moveTo) в который передаем enum (лево/право/верх/вниз)
+   персонаж должен перемещаться по комнате и сбоку отображать в консоле его перемещение
+   реализовать правило по которому персонаж не сможет выйти за пределы комнаты
+
+3
+   создать ящик с координатами х-у
+   он по правилам не покидает пределы комнаты
+   персонаж может двигать ящик
+   персонаж не может находиться с ящиком в одной клетке (если ящик даже упрется в стенку)
+   ящик тоже распечатывается в комнате
+   создать точку в комнате, до которой надо дотащить ящик
+  */
+
