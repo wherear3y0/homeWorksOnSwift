@@ -1687,3 +1687,41 @@ print(human.description)
    создать точку в комнате, до которой надо дотащить ящик
   */
 
+//example for me
+
+struct Point  {
+    var x : Int
+    var y : Int
+    
+    mutating func moveByX (x: Int, toY y: Int) {
+        self.x += x
+        self.y += y
+    }
+}
+
+var p = Point(x: 4, y: 2)
+
+p.moveByX(x: 2, toY: 3)
+
+enum Color {
+    
+    static func numberOfElements () -> Int {
+        return 2
+    }
+    
+    case white
+    case black
+    
+    mutating func invert() -> Color {
+        self = self == .white ? .black : .white
+        return self
+    }
+}
+
+var c = Color.black
+
+c.invert()
+
+Color.numberOfElements()
+
+
