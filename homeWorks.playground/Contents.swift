@@ -1689,7 +1689,7 @@ print(human.description)
 
 //example for me
 
-struct Point  {
+struct ppppppoint  {
     var x : Int
     var y : Int
     
@@ -1699,7 +1699,7 @@ struct Point  {
     }
 }
 
-var p = Point(x: 4, y: 2)
+var p = ppppppoint(x: 4, y: 2)
 
 p.moveByX(x: 2, toY: 3)
 
@@ -1724,4 +1724,214 @@ c.invert()
 
 Color.numberOfElements()
 
+struct Point {
+    var x : Int
+    var y : Int
+}
 
+enum Directions : String {
+    case left
+    case right
+    case up
+    case down
+    case stop
+    
+    func invert () -> Directions {
+        switch self {
+            case .left : return .right
+            case .right : return .left
+            case .up : return .down
+            case .down : return .up
+            default : return .stop
+        }
+    }
+}
+
+enum Figures : String {
+    case Space = "⬜️"
+    case Person = "🥶"
+    case Box = "🈵"
+    case Finish = "🏁"
+    case Border = "⬛️"
+}
+
+class Room {
+    
+    var person : Person {
+        didSet {
+            if person.position.x == box.position.x && person.position.y == box.position.y && !(person.move != .stop && box.moveTo(directions: person.move)) {
+                Swift.print("u coudnt have a move(")
+                person.position = oldValue.position
+                person.move = .stop
+            }
+            if person.move != .stop {
+                Swift.print("u can move!")
+                print()
+            }
+            if finish.position.x == box.position.x && finish.position.y == box.position.y {
+                Swift.print("end")
+            }
+        }
+    }
+    
+    var box : Box
+    var finish : Finish
+    var lenght : Int
+    var width : Int
+    
+    init(Person player: Person, box gameBox : Box, finish finishPoint: Finish) {
+        width = RoomWidth
+        lenght = RoomLength
+        person = player
+        box = gameBox
+        finish = finishPoint
+        
+    }
+    
+    func print () {
+        var roomCells : [[String]] = Array()
+        for y in 0...(lenght + 1) {
+            roomCells.append(Array())
+            for x in 0...(width + 1) {
+                if x == 0 || x == (width + 1) || y == 0 || y == (lenght + 1) {
+                    roomCells[y].append(Figures.Border.rawValue)
+                } else {
+                    roomCells[y].append(Figures.Space.rawValue)
+                }
+            }
+        }
+        roomCells[finish.position.y][finish.position.x] = Finish.figure.rawValue
+        roomCells[box.position.y][box.position.x] = Box.figure.rawValue
+        roomCells[person.position.y][person.position.x] = Person.figure.rawValue
+        
+        var stringRoom : String = ""
+        for y in roomCells.indices.reversed() {
+            for cell in roomCells[y] {
+                stringRoom.append(cell)
+            }
+            Swift.print(stringRoom)
+            stringRoom = ""
+        }
+        Swift.print("")
+    }
+    
+}
+
+struct Person {
+    static let figure = Figures.Person
+    var move : Directions = .stop
+    var position : Point
+    var countStep = 0
+    
+    mutating func moveTo(direction: Directions) -> Bool {
+        self.countStep = countStep + 1
+        var newPoint : Point
+        switch direction {
+            case .left : newPoint = Point(x: position.x - 1, y: position.y)
+            case .right : newPoint = Point(x: position.x + 1, y: position.y)
+            case .down : newPoint = Point(x: position.x, y: position.y - 1)
+            case .up : newPoint = Point(x: position.x, y: position.y + 1)
+            default : newPoint = position
+        }
+        if inRoom(point: newPoint) {
+            move = direction
+            position = newPoint
+            return true
+        } else {
+            Swift.print("u coudnt have a move(")
+            move = .stop
+            return false
+        }
+    }
+}
+
+func inRoom(point: Point) -> Bool {
+    if point.x < 1 || point.x > RoomWidth || point.y < 1 || point.y > RoomLength {
+        return false
+    } else {
+        return true
+    }
+}
+
+struct Box {
+    static let figure = Figures.Box
+    var position : Point
+    
+    mutating func moveTo(directions: Directions) -> Bool {
+        var newPoint : Point
+            switch directions {
+            case .left : newPoint = Point(x: position.x - 1, y: position.y)
+            case .right : newPoint = Point(x: position.x + 1, y: position.y)
+            case .up : newPoint = Point(x: position.x, y: position.y + 1)
+            case .down : newPoint = Point(x: position.x, y: position.y - 1)
+            default : newPoint = position
+        }
+        if inRoom(point: newPoint) {
+            position = newPoint
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+struct Finish {
+    static let figure = Figures.Finish
+    var position : Point
+}
+
+
+
+let RoomWidth = 4
+let RoomLength = 4
+let player = Person(position: Point(x: 4, y: 4))
+let box = Box(position: Point(x: 2, y: 3))
+let finish = Finish(position: Point(x: 1, y: 2))
+let room = Room(Person: player, box: box, finish: finish)
+
+room.print()
+
+
+//⬛️⬛️⬛️⬛️⬛️⬛️
+//⬛️⬜️⬜️⬜️🥶⬛️
+//⬛️⬜️🈵⬜️⬜️⬛️
+//⬛️🏁⬜️⬜️⬜️⬛️
+//⬛️⬜️⬜️⬜️⬜️⬛️
+//⬛️⬛️⬛️⬛️⬛️⬛️
+
+// MARK: 17 задание : САБСКРИПТЫ
+
+//print("\n \n ----------------------- 16 - САБСКРИПТЫ ----------------------- \n \n ")
+
+/**
+1. - простая задача
+ шахматная доска, сделать тип
+ столбцы буквы A...H , 1...8 ряды
+ при обращении к ячейке по сабскрипту надо вернуть белый или черный цвет (энум)
+ только геттер
+ + проверка на диапазон возможных ячеек (например 0 0, Б 9) - вернуть нил
+
+2. крестики нолики - средний уровень сложность
+ создать поле для крестиков ноликов
+ создать энум пусто/крестик/нолик
+ добавить возможность красиво распечатывать поле
+ по сабскрипту обращаться цифра и цифра и ставить туда значение (крестик или нолик)
+ + проверка на диапазон возможных ячеек (например 4 4) - ничего не делать или обработать ошибку
+ + проверка на то что в ячейку нельзя ставить пусто
+ + проверка на то что в занятую ячейку вообще нельзя ставить что либо еще - человек должен понять ошибку
+ + для задротов - определить победителя
+
+3. морской бой - самый сложный вариант работы
+ начать с корабля - сделать корабль со своей локальной системой координат (одномерный в линию)
+ лучше сделать корабль прямоугольный, чтобы у него была начальная координата, высота и ширина
+ у него должна быть локальная система начиная с головы
+ он может получать попадания и говорить: попал/не попал/убили
+ должен вычислять что он помер
+
+потом делаем поле для игры в морской бой
+ столбцы ряды / буквы цифры
+ надо принимать выстрелы - если мимо то мимо
+ если попал в корабль - надо проверять по локальной системе координат (собственный сабскрипт) и узнать умер или нет
+ корабль должен сохранять все выстрелы которые в него попали (Ну или поле, смотрите сами)
+ для теста - пара мимо, а потом 4 выстрела для убийства 4 палубника и красиво печатать ходы
+*/
