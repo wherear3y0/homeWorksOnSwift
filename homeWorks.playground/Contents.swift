@@ -1703,6 +1703,7 @@ var p = ppppppoint(x: 4, y: 2)
 
 p.moveByX(x: 2, toY: 3)
 
+//3
 enum Color {
     
     static func numberOfElements () -> Int {
@@ -1749,10 +1750,10 @@ enum Directions : String {
 
 enum Figures : String {
     case Space = "⬜️"
-    case Person = "🥶"
+    case Person = "👁️‍🗨️"
     case Box = "🈵"
     case Finish = "🏁"
-    case Border = "⬛️"
+    case Border = "🟥"
 }
 
 class Room {
@@ -1800,6 +1801,7 @@ class Room {
                 }
             }
         }
+        
         roomCells[finish.position.y][finish.position.x] = Finish.figure.rawValue
         roomCells[box.position.y][box.position.x] = Box.figure.rawValue
         roomCells[person.position.y][person.position.x] = Person.figure.rawValue
