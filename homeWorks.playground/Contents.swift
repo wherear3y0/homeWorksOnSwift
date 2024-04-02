@@ -1903,7 +1903,7 @@ room.print()
 
 // MARK: 17 задание : САБСКРИПТЫ
 
-//print("\n \n ----------------------- 16 - САБСКРИПТЫ ----------------------- \n \n ")
+//print("\n \n ----------------------- 17 - САБСКРИПТЫ ----------------------- \n \n ")
 
 /**
 1. - простая задача
@@ -1937,3 +1937,84 @@ room.print()
  корабль должен сохранять все выстрелы которые в него попали (Ну или поле, смотрите сами)
  для теста - пара мимо, а потом 4 выстрела для убийства 4 палубника и красиво печатать ходы
 */
+
+//example for me
+
+class baclet {
+    var Fruits : [String] = []
+    
+    subscript(index: Int) -> String {
+        get {
+            return Fruits[index]
+        } set (newFruit) {
+            Fruits[index] = newFruit
+        }
+    }
+}
+
+let basket = baclet()
+basket.Fruits = ["apple", "orange", "grape"]
+
+let firstFruit = basket[0]
+print("first fruit \(firstFruit)")
+
+basket[1] = "GRAPES"
+
+print(basket.Fruits)
+
+// lession example
+
+struct Family {
+    var father = "Father"
+    var mother = "Mother"
+    var kids = ["kid1", "kid2", "kid3"]
+    
+    var count : Int {
+        return 2 + kids.count
+    }
+    
+    subscript(index: Int) -> String? {
+        get {
+            switch(index) {
+            case 0 : return father
+            case 1 : return mother
+            case 2..<(2 + kids.count) : return kids[index - 2]
+            default : return nil
+            }
+        } set {
+            
+            let value = newValue ?? ""
+            
+            switch(index) {
+            case 0 : return father = value
+            case 1 : return mother = value
+            case 2..<(2 + kids.count) : return kids[index - 2] = value
+            default : break
+            }
+        }
+    }
+    
+    subscript (index : Int, suffix: String) -> String? {
+        var name = self[index] ?? ""
+        name += " " + suffix
+        return name
+    }
+}
+
+
+//1
+
+struct Chess {
+    let chessArray = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    
+    subscript(column: String, row: Int) -> String {
+        get {
+            if chessArray.firstIndex(of: column) == nil || row < 1 || row > 8 {
+                return "break"
+            } else {
+                return (row % 2 == (chessArray.firstIndex(of: column)! + 1) % 2) ? "Black" : "White"
+            }
+        }
+    }
+}
+
