@@ -2018,3 +2018,197 @@ struct Chess {
     }
 }
 
+//2
+
+let Heihght = 3
+let Lenght = 3
+let lenghtWin = 3
+var pereKey = true
+
+enum Types : String{
+    case zero = "⭕️"
+    case void = "⬜️"
+    case cross = "❌"
+    case vin = "✅"
+}
+
+class Field {
+    
+    var dict = [String: Types]()
+    
+    init () {
+        
+    }
+    
+    func key(xKey: Int, yKey: Int) -> String {
+        return String(xKey) + "." + String(yKey)
+    }
+    
+    func printField() {
+        var len = ""
+        for i in 0..<Heihght {
+            for j in 0..<Lenght {
+                
+                switch dict["\(j+1).\(Heihght - i)"]?.rawValue {
+                    case nil : len += Types.void.rawValue
+                    case Types.zero.rawValue : len += Types.zero.rawValue
+                    case Types.cross.rawValue : len += Types.cross.rawValue
+                    case Types.vin.rawValue : len += Types.vin.rawValue
+                    default : break
+                }
+            }
+            
+            print(len)
+            len = ""
+        }
+        
+        var what = "=="
+        
+        for _ in 0..<Lenght {
+            what += "=="
+        }
+        print(what)
+        
+    }
+    
+    func scoreWin (score: Int) -> Bool {
+        return score == Lenght ? true : false
+    }
+    
+    func nexPoint(i: Int, j: Int, forType: Types) -> Int {
+        
+        var score = 1
+        
+        for k in 1...Lenght {
+            if dict["\(j+k).\(i)"] == forType {
+                
+                score += 1
+                if score == lenghtWin {
+                    for k in 0..<Lenght {
+                        
+                        dict["\(j+k).\(i)"] = Types.vin
+                    }
+                    
+                    return score
+                }
+                
+            } else {
+                score = 1
+                break
+            }
+        }
+        
+        for k in 1...Heihght {
+            if dict["\(j).\(i+k)"] == forType {
+                
+                score += 1
+                if score == lenghtWin {
+                    for k in 0..<Heihght {
+                        
+                        dict["\(j).\(i+k)"] = Types.vin
+                    }
+                    
+                    return score
+                }
+                
+            } else {
+                score = 1
+                break
+            }
+        }
+        
+        for k in 1...Heihght {
+            if dict["\(j+k).\(i+k)"] == forType {
+                
+                score += 1
+                if score == lenghtWin {
+                    for k in 0..<Heihght {
+                        
+                        dict["\(j+k).\(i+k)"] = Types.vin
+                    }
+                    
+                    return score
+                }
+                
+            } else {
+                score = 1
+                break
+            }
+        }
+        
+        for k in 1...Heihght {
+            if dict["\(j-k).\(i+k)"] == forType {
+                
+                score += 1
+                if score == lenghtWin {
+                    for k in 0..<Heihght {
+                        
+                        dict["\(j-k).\(i+k)"] = Types.vin
+                    }
+                    
+                    return score
+                }
+                
+            } else {
+                score = 1
+                break
+            }
+        }
+        return score
+    }
+    
+    func winOrNo() {
+        var countVoid = 0
+        
+        for i in 1...Heihght {
+            for j in 1...Lenght {
+                
+                switch dict["\(j).\(i)"] {
+                    case nil: countVoid += 1
+                    case .cross : if scoreWin(score: nexPoint(i: i, j: j, forType: .cross)) {
+                        print("cross win")
+                        printField()
+                    }
+                    case .zero : if scoreWin(score: nexPoint(i: i, j: j, forType: .zero)) {
+                        print("zero win")
+                        printField()
+                    }
+                    default: break
+                }
+            }
+        }
+        if countVoid == 0 {
+            print("no one win")
+        }
+    }
+    
+    subscript(x: Int, y: Int) -> Types? {
+        
+        get {
+            return dict[key(xKey: x, yKey: y)]
+        }
+        set {
+            if dict["hello"] != newValue || dict["hello"] == nil {
+                if(x>0 && x<Lenght + 1) && (y < 0 && y < Heihght + 1) {
+                    if dict[key(xKey: x, yKey: y)] == .void || dict[key(xKey: x, yKey: y)] == nil {
+                        
+                        dict[key(xKey: x, yKey: y)] = newValue
+                        dict["hello"] = newValue
+                        printField()
+                        winOrNo()
+                    } else {
+                        print("wrong")
+                    }
+                } else {
+                    print("out of range")
+                }
+            } else {
+                print("not ur time")
+            }
+        }
+    }
+}
+
+var field = Field()
+
+
