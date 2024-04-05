@@ -1688,210 +1688,210 @@ print(human.description)
   */
 
 //example for me
+//
+//struct ppppppoint  {
+//    var x : Int
+//    var y : Int
+//    
+//    mutating func moveByX (x: Int, toY y: Int) {
+//        self.x += x
+//        self.y += y
+//    }
+//}
+//
+//var p = ppppppoint(x: 4, y: 2)
+//
+//p.moveByX(x: 2, toY: 3)
+//
+////3
+//enum Color {
+//    
+//    static func numberOfElements () -> Int {
+//        return 2
+//    }
+//    
+//    case white
+//    case black
+//    
+//    mutating func invert() -> Color {
+//        self = self == .white ? .black : .white
+//        return self
+//    }
+//}
+//
+//var c = Color.black
+//
+//c.invert()
+//
+//Color.numberOfElements()
 
-struct ppppppoint  {
-    var x : Int
-    var y : Int
-    
-    mutating func moveByX (x: Int, toY y: Int) {
-        self.x += x
-        self.y += y
-    }
-}
-
-var p = ppppppoint(x: 4, y: 2)
-
-p.moveByX(x: 2, toY: 3)
-
-//3
-enum Color {
-    
-    static func numberOfElements () -> Int {
-        return 2
-    }
-    
-    case white
-    case black
-    
-    mutating func invert() -> Color {
-        self = self == .white ? .black : .white
-        return self
-    }
-}
-
-var c = Color.black
-
-c.invert()
-
-Color.numberOfElements()
-
-struct Point {
-    var x : Int
-    var y : Int
-}
-
-enum Directions : String {
-    case left
-    case right
-    case up
-    case down
-    case stop
-    
-    func invert () -> Directions {
-        switch self {
-            case .left : return .right
-            case .right : return .left
-            case .up : return .down
-            case .down : return .up
-            default : return .stop
-        }
-    }
-}
-
-enum Figures : String {
-    case Space = "⬜️"
-    case Person = "👁️‍🗨️"
-    case Box = "🈵"
-    case Finish = "🏁"
-    case Border = "🟥"
-}
-
-class Room {
-    
-    var person : Person {
-        didSet {
-            if person.position.x == box.position.x && person.position.y == box.position.y && !(person.move != .stop && box.moveTo(directions: person.move)) {
-                Swift.print("u coudnt have a move(")
-                person.position = oldValue.position
-                person.move = .stop
-            }
-            if person.move != .stop {
-                Swift.print("u can move!")
-                print()
-            }
-            if finish.position.x == box.position.x && finish.position.y == box.position.y {
-                Swift.print("end")
-            }
-        }
-    }
-    
-    var box : Box
-    var finish : Finish
-    var lenght : Int
-    var width : Int
-    
-    init(Person player: Person, box gameBox : Box, finish finishPoint: Finish) {
-        width = RoomWidth
-        lenght = RoomLength
-        person = player
-        box = gameBox
-        finish = finishPoint
-        
-    }
-    
-    func print () {
-        var roomCells : [[String]] = Array()
-        for y in 0...(lenght + 1) {
-            roomCells.append(Array())
-            for x in 0...(width + 1) {
-                if x == 0 || x == (width + 1) || y == 0 || y == (lenght + 1) {
-                    roomCells[y].append(Figures.Border.rawValue)
-                } else {
-                    roomCells[y].append(Figures.Space.rawValue)
-                }
-            }
-        }
-        
-        roomCells[finish.position.y][finish.position.x] = Finish.figure.rawValue
-        roomCells[box.position.y][box.position.x] = Box.figure.rawValue
-        roomCells[person.position.y][person.position.x] = Person.figure.rawValue
-        
-        var stringRoom : String = ""
-        for y in roomCells.indices.reversed() {
-            for cell in roomCells[y] {
-                stringRoom.append(cell)
-            }
-            Swift.print(stringRoom)
-            stringRoom = ""
-        }
-        Swift.print("")
-    }
-    
-}
-
-struct Person {
-    static let figure = Figures.Person
-    var move : Directions = .stop
-    var position : Point
-    var countStep = 0
-    
-    mutating func moveTo(direction: Directions) -> Bool {
-        self.countStep = countStep + 1
-        var newPoint : Point
-        switch direction {
-            case .left : newPoint = Point(x: position.x - 1, y: position.y)
-            case .right : newPoint = Point(x: position.x + 1, y: position.y)
-            case .down : newPoint = Point(x: position.x, y: position.y - 1)
-            case .up : newPoint = Point(x: position.x, y: position.y + 1)
-            default : newPoint = position
-        }
-        if inRoom(point: newPoint) {
-            move = direction
-            position = newPoint
-            return true
-        } else {
-            Swift.print("u coudnt have a move(")
-            move = .stop
-            return false
-        }
-    }
-}
-
-func inRoom(point: Point) -> Bool {
-    if point.x < 1 || point.x > RoomWidth || point.y < 1 || point.y > RoomLength {
-        return false
-    } else {
-        return true
-    }
-}
-
-struct Box {
-    static let figure = Figures.Box
-    var position : Point
-    
-    mutating func moveTo(directions: Directions) -> Bool {
-        var newPoint : Point
-            switch directions {
-            case .left : newPoint = Point(x: position.x - 1, y: position.y)
-            case .right : newPoint = Point(x: position.x + 1, y: position.y)
-            case .up : newPoint = Point(x: position.x, y: position.y + 1)
-            case .down : newPoint = Point(x: position.x, y: position.y - 1)
-            default : newPoint = position
-        }
-        if inRoom(point: newPoint) {
-            position = newPoint
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-struct Finish {
-    static let figure = Figures.Finish
-    var position : Point
-}
-
-
-
-let RoomWidth = 4
-let RoomLength = 4
-let player = Person(position: Point(x: 4, y: 4))
-let box = Box(position: Point(x: 2, y: 3))
-let finish = Finish(position: Point(x: 1, y: 2))
-let room = Room(Person: player, box: box, finish: finish)
-
-room.print()
+//struct Point {
+//    var x : Int
+//    var y : Int
+//}
+//
+//enum Directions : String {
+//    case left
+//    case right
+//    case up
+//    case down
+//    case stop
+//    
+//    func invert () -> Directions {
+//        switch self {
+//            case .left : return .right
+//            case .right : return .left
+//            case .up : return .down
+//            case .down : return .up
+//            default : return .stop
+//        }
+//    }
+//}
+//
+//enum Figures : String {
+//    case Space = "⬜️"
+//    case Person = "👁️‍🗨️"
+//    case Box = "🈵"
+//    case Finish = "🏁"
+//    case Border = "🟥"
+//}
+//
+//class Room {
+//    
+//    var person : Person {
+//        didSet {
+//            if person.position.x == box.position.x && person.position.y == box.position.y && !(person.move != .stop && box.moveTo(directions: person.move)) {
+//                Swift.print("u coudnt have a move(")
+//                person.position = oldValue.position
+//                person.move = .stop
+//            }
+//            if person.move != .stop {
+//                Swift.print("u can move!")
+//                print()
+//            }
+//            if finish.position.x == box.position.x && finish.position.y == box.position.y {
+//                Swift.print("end")
+//            }
+//        }
+//    }
+//    
+//    var box : Box
+//    var finish : Finish
+//    var lenght : Int
+//    var width : Int
+//    
+//    init(Person player: Person, box gameBox : Box, finish finishPoint: Finish) {
+//        width = RoomWidth
+//        lenght = RoomLength
+//        person = player
+//        box = gameBox
+//        finish = finishPoint
+//        
+//    }
+//    
+//    func print () {
+//        var roomCells : [[String]] = Array()
+//        for y in 0...(lenght + 1) {
+//            roomCells.append(Array())
+//            for x in 0...(width + 1) {
+//                if x == 0 || x == (width + 1) || y == 0 || y == (lenght + 1) {
+//                    roomCells[y].append(Figures.Border.rawValue)
+//                } else {
+//                    roomCells[y].append(Figures.Space.rawValue)
+//                }
+//            }
+//        }
+//        
+//        roomCells[finish.position.y][finish.position.x] = Finish.figure.rawValue
+//        roomCells[box.position.y][box.position.x] = Box.figure.rawValue
+//        roomCells[person.position.y][person.position.x] = Person.figure.rawValue
+//        
+//        var stringRoom : String = ""
+//        for y in roomCells.indices.reversed() {
+//            for cell in roomCells[y] {
+//                stringRoom.append(cell)
+//            }
+//            Swift.print(stringRoom)
+//            stringRoom = ""
+//        }
+//        Swift.print("")
+//    }
+//    
+//}
+//
+//struct Person {
+//    static let figure = Figures.Person
+//    var move : Directions = .stop
+//    var position : Point
+//    var countStep = 0
+//    
+//    mutating func moveTo(direction: Directions) -> Bool {
+//        self.countStep = countStep + 1
+//        var newPoint : Point
+//        switch direction {
+//            case .left : newPoint = Point(x: position.x - 1, y: position.y)
+//            case .right : newPoint = Point(x: position.x + 1, y: position.y)
+//            case .down : newPoint = Point(x: position.x, y: position.y - 1)
+//            case .up : newPoint = Point(x: position.x, y: position.y + 1)
+//            default : newPoint = position
+//        }
+//        if inRoom(point: newPoint) {
+//            move = direction
+//            position = newPoint
+//            return true
+//        } else {
+//            Swift.print("u coudnt have a move(")
+//            move = .stop
+//            return false
+//        }
+//    }
+//}
+//
+//func inRoom(point: Point) -> Bool {
+//    if point.x < 1 || point.x > RoomWidth || point.y < 1 || point.y > RoomLength {
+//        return false
+//    } else {
+//        return true
+//    }
+//}
+//
+//struct Box {
+//    static let figure = Figures.Box
+//    var position : Point
+//    
+//    mutating func moveTo(directions: Directions) -> Bool {
+//        var newPoint : Point
+//            switch directions {
+//            case .left : newPoint = Point(x: position.x - 1, y: position.y)
+//            case .right : newPoint = Point(x: position.x + 1, y: position.y)
+//            case .up : newPoint = Point(x: position.x, y: position.y + 1)
+//            case .down : newPoint = Point(x: position.x, y: position.y - 1)
+//            default : newPoint = position
+//        }
+//        if inRoom(point: newPoint) {
+//            position = newPoint
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+//}
+//
+//struct Finish {
+//    static let figure = Figures.Finish
+//    var position : Point
+//}
+//
+//
+//
+//let RoomWidth = 4
+//let RoomLength = 4
+//let player = Person(position: Point(x: 4, y: 4))
+//let box = Box(position: Point(x: 2, y: 3))
+//let finish = Finish(position: Point(x: 1, y: 2))
+//let room = Room(Person: player, box: box, finish: finish)
+//
+//room.print()
 
 
 //⬛️⬛️⬛️⬛️⬛️⬛️
@@ -2210,5 +2210,37 @@ class Field {
 }
 
 var field = Field()
+
+
+
+enum CColor : String {
+    case black = "black"
+    case white = "white"
+    case yellow = "yellow"
+}
+
+class Car {
+    var mark : String
+    var year : Int
+    var color : CColor
+    var speed : Int
+    
+    func printCar() {
+        Swift.print("your car has: speed: \(speed) \ncolor: \(color)\n year of date: \(year) and mark is: \(mark)")
+    }
+    
+    init(mark: String, year: Int, color: CColor, speed: Int) {
+        self.mark = mark
+        self.year = year
+        self.color = color
+        self.speed = speed
+    }
+}
+
+
+
+var ccc = Car(mark: "ferrari", year: 1999, color: .black, speed: 356)
+
+ccc.printCar()
 
 
