@@ -2164,7 +2164,7 @@ class Field {
             for j in 1...Lenght {
                 
                 switch dict["\(j).\(i)"] {
-                    case nil: countVoid += 1
+                    case nil: countVoid += 1 
                     case .cross : if scoreWin(score: nexPoint(i: i, j: j, forType: .cross)) {
                         print("cross win")
                         printField()
@@ -2242,5 +2242,4 @@ class Car {
 var ccc = Car(mark: "ferrari", year: 1999, color: .black, speed: 356)
 
 ccc.printCar()
-
 
