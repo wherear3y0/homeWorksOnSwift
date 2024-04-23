@@ -1,2 +1,7 @@
 # homeWorksOnSwift
-Here will be my homework on the process of learning swift. That's it
+
+Короче буду тут изучать язык. Пока что я забил на 3 недели из-за личных обстоятельств. 
+
+Но теперь я продолжаю 
+
+![alt text](image.png)
