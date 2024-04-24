@@ -1940,306 +1940,347 @@ print(human.description)
 
 //example for me
 
-class baclet {
-    var Fruits : [String] = []
+// class baclet {
+//     var Fruits : [String] = []
     
-    subscript(index: Int) -> String {
-        get {
-            return Fruits[index]
-        } set (newFruit) {
-            Fruits[index] = newFruit
-        }
-    }
-}
+//     subscript(index: Int) -> String {
+//         get {
+//             return Fruits[index]
+//         } set (newFruit) {
+//             Fruits[index] = newFruit
+//         }
+//     }
+// }
 
-let basket = baclet()
-basket.Fruits = ["apple", "orange", "grape"]
+// let basket = baclet()
+// basket.Fruits = ["apple", "orange", "grape"]
 
-let firstFruit = basket[0]
-print("first fruit \(firstFruit)")
+// let firstFruit = basket[0]
+// print("first fruit \(firstFruit)")
 
-basket[1] = "GRAPES"
+// basket[1] = "GRAPES"
 
-print(basket.Fruits)
+// print(basket.Fruits)
 
-// lession example
+// // lession example
 
-struct Family {
-    var father = "Father"
-    var mother = "Mother"
-    var kids = ["kid1", "kid2", "kid3"]
+// struct Family {
+//     var father = "Father"
+//     var mother = "Mother"
+//     var kids = ["kid1", "kid2", "kid3"]
     
-    var count : Int {
-        return 2 + kids.count
-    }
+//     var count : Int {
+//         return 2 + kids.count
+//     }
     
-    subscript(index: Int) -> String? {
-        get {
-            switch(index) {
-            case 0 : return father
-            case 1 : return mother
-            case 2..<(2 + kids.count) : return kids[index - 2]
-            default : return nil
-            }
-        } set {
+//     subscript(index: Int) -> String? {
+//         get {
+//             switch(index) {
+//             case 0 : return father
+//             case 1 : return mother
+//             case 2..<(2 + kids.count) : return kids[index - 2]
+//             default : return nil
+//             }
+//         } set {
             
-            let value = newValue ?? ""
+//             let value = newValue ?? ""
             
-            switch(index) {
-            case 0 : return father = value
-            case 1 : return mother = value
-            case 2..<(2 + kids.count) : return kids[index - 2] = value
-            default : break
-            }
-        }
-    }
+//             switch(index) {
+//             case 0 : return father = value
+//             case 1 : return mother = value
+//             case 2..<(2 + kids.count) : return kids[index - 2] = value
+//             default : break
+//             }
+//         }
+//     }
     
-    subscript (index : Int, suffix: String) -> String? {
-        var name = self[index] ?? ""
-        name += " " + suffix
-        return name
-    }
-}
+//     subscript (index : Int, suffix: String) -> String? {
+//         var name = self[index] ?? ""
+//         name += " " + suffix
+//         return name
+//     }
+// }
 
 
-//1
+// //1
 
-struct Chess {
-    let chessArray = ["a", "b", "c", "d", "e", "f", "g", "h"]
+// struct Chess {
+//     let chessArray = ["a", "b", "c", "d", "e", "f", "g", "h"]
     
-    subscript(column: String, row: Int) -> String {
-        get {
-            if chessArray.firstIndex(of: column) == nil || row < 1 || row > 8 {
-                return "break"
-            } else {
-                return (row % 2 == (chessArray.firstIndex(of: column)! + 1) % 2) ? "Black" : "White"
-            }
-        }
-    }
-}
+//     subscript(column: String, row: Int) -> String {
+//         get {
+//             if chessArray.firstIndex(of: column) == nil || row < 1 || row > 8 {
+//                 return "break"
+//             } else {
+//                 return (row % 2 == (chessArray.firstIndex(of: column)! + 1) % 2) ? "Black" : "White"
+//             }
+//         }
+//     }
+// }
 
-//2
+// //2
 
-let Heihght = 3
-let Lenght = 3
-let lenghtWin = 3
-var pereKey = true
+// let Heihght = 3
+// let Lenght = 3
+// let lenghtWin = 3
+// var pereKey = true
 
-enum Types : String{
-    case zero = "⭕️"
-    case void = "⬜️"
-    case cross = "❌"
-    case vin = "✅"
-}
+// enum Types : String{
+//     case zero = "⭕️"
+//     case void = "⬜️"
+//     case cross = "❌"
+//     case vin = "✅"
+// }
 
-class Field {
+// class Field {
     
-    var dict = [String: Types]()
+//     var dict = [String: Types]()
     
-    init () {
+//     init () {
         
-    }
+//     }
     
-    func key(xKey: Int, yKey: Int) -> String {
-        return String(xKey) + "." + String(yKey)
-    }
+//     func key(xKey: Int, yKey: Int) -> String {
+//         return String(xKey) + "." + String(yKey)
+//     }
     
-    func printField() {
-        var len = ""
-        for i in 0..<Heihght {
-            for j in 0..<Lenght {
+//     func printField() {
+//         var len = ""
+//         for i in 0..<Heihght {
+//             for j in 0..<Lenght {
                 
-                switch dict["\(j+1).\(Heihght - i)"]?.rawValue {
-                    case nil : len += Types.void.rawValue
-                    case Types.zero.rawValue : len += Types.zero.rawValue
-                    case Types.cross.rawValue : len += Types.cross.rawValue
-                    case Types.vin.rawValue : len += Types.vin.rawValue
-                    default : break
-                }
-            }
+//                 switch dict["\(j+1).\(Heihght - i)"]?.rawValue {
+//                     case nil : len += Types.void.rawValue
+//                     case Types.zero.rawValue : len += Types.zero.rawValue
+//                     case Types.cross.rawValue : len += Types.cross.rawValue
+//                     case Types.vin.rawValue : len += Types.vin.rawValue
+//                     default : break
+//                 }
+//             }
             
-            print(len)
-            len = ""
+//             print(len)
+//             len = ""
+//         }
+        
+//         var what = "=="
+        
+//         for _ in 0..<Lenght {
+//             what += "=="
+//         }
+//         print(what)
+        
+//     }
+    
+//     func scoreWin (score: Int) -> Bool {
+//         return score == Lenght ? true : false
+//     }
+    
+//     func nexPoint(i: Int, j: Int, forType: Types) -> Int {
+        
+//         var score = 1
+        
+//         for k in 1...Lenght {
+//             if dict["\(j+k).\(i)"] == forType {
+                
+//                 score += 1
+//                 if score == lenghtWin {
+//                     for k in 0..<Lenght {
+                        
+//                         dict["\(j+k).\(i)"] = Types.vin
+//                     }
+                    
+//                     return score
+//                 }
+                
+//             } else {
+//                 score = 1
+//                 break
+//             }
+//         }
+        
+//         for k in 1...Heihght {
+//             if dict["\(j).\(i+k)"] == forType {
+                
+//                 score += 1
+//                 if score == lenghtWin {
+//                     for k in 0..<Heihght {
+                        
+//                         dict["\(j).\(i+k)"] = Types.vin
+//                     }
+                    
+//                     return score
+//                 }
+                
+//             } else {
+//                 score = 1
+//                 break
+//             }
+//         }
+        
+//         for k in 1...Heihght {
+//             if dict["\(j+k).\(i+k)"] == forType {
+                
+//                 score += 1
+//                 if score == lenghtWin {
+//                     for k in 0..<Heihght {
+                        
+//                         dict["\(j+k).\(i+k)"] = Types.vin
+//                     }
+                    
+//                     return score
+//                 }
+                
+//             } else {
+//                 score = 1
+//                 break
+//             }
+//         }
+        
+//         for k in 1...Heihght {
+//             if dict["\(j-k).\(i+k)"] == forType {
+                
+//                 score += 1
+//                 if score == lenghtWin {
+//                     for k in 0..<Heihght {
+                        
+//                         dict["\(j-k).\(i+k)"] = Types.vin
+//                     }
+                    
+//                     return score
+//                 }
+                
+//             } else {
+//                 score = 1
+//                 break
+//             }
+//         }
+//         return score
+//     }
+    
+//     func winOrNo() {
+//         var countVoid = 0
+        
+//         for i in 1...Heihght {
+//             for j in 1...Lenght {
+                
+//                 switch dict["\(j).\(i)"] {
+//                     case nil: countVoid += 1 
+//                     case .cross : if scoreWin(score: nexPoint(i: i, j: j, forType: .cross)) {
+//                         print("cross win")
+//                         printField()
+//                     }
+//                     case .zero : if scoreWin(score: nexPoint(i: i, j: j, forType: .zero)) {
+//                         print("zero win")
+//                         printField()
+//                     }
+//                     default: break
+//                 }
+//             }
+//         }
+//         if countVoid == 0 {
+//             print("no one win")
+//         }
+//     }
+    
+//     subscript(x: Int, y: Int) -> Types? {
+        
+//         get {
+//             return dict[key(xKey: x, yKey: y)]
+//         }
+//         set {
+//             if dict["hello"] != newValue || dict["hello"] == nil {
+//                 if(x>0 && x<Lenght + 1) && (y < 0 && y < Heihght + 1) {
+//                     if dict[key(xKey: x, yKey: y)] == .void || dict[key(xKey: x, yKey: y)] == nil {
+                        
+//                         dict[key(xKey: x, yKey: y)] = newValue
+//                         dict["hello"] = newValue
+//                         printField()
+//                         winOrNo()
+//                     } else {
+//                         print("wrong")
+//                     }
+//                 } else {
+//                     print("out of range")
+//                 }
+//             } else {
+//                 print("not ur time")
+//             }
+//         }
+//     }
+// }
+
+// var field = Field()
+
+
+
+// enum CColor : String {
+//     case black = "black"
+//     case white = "white"
+//     case yellow = "yellow"
+// }
+
+// class Car {
+//     var mark : String
+//     var year : Int
+//     var color : CColor
+//     var speed : Int
+    
+//     func printCar() {
+//         Swift.print("your car has: speed: \(speed) \ncolor: \(color)\n year of date: \(year) and mark is: \(mark)")
+//     }
+    
+//     init(mark: String, year: Int, color: CColor, speed: Int) {
+//         self.mark = mark
+//         self.year = year
+//         self.color = color
+//         self.speed = speed
+//     }
+// }
+
+
+
+// var ccc = Car(mark: "ferrari", year: 1999, color: .black, speed: 356)
+
+// ccc.printCar()
+
+
+//Решил сделать задачку на вычисление годовых процентов
+
+func calculateDailyInterest(principal: inout Double, bankMoney: inout Double) -> Double {
+    let annualInterestRate = 0.155 // 15.5%
+    let numberOfDays = 367
+    let dailyInterestRate = annualInterestRate / Double(numberOfDays)
+    let dailyInterest = principal * dailyInterestRate
+    
+    // Округление копеек
+    let roundedDailyInterest = Foundation.round(dailyInterest * 100) / 100 // Округляем до двух знаков после запятой
+    
+    // Проверка, если округленный ежедневный доход больше половины копейки, то берем одну копейку из денег банка
+    var finalDailyInterest = roundedDailyInterest
+    if roundedDailyInterest.truncatingRemainder(dividingBy: 1) >= 0.005 {
+        if bankMoney >= 0.01 {
+            finalDailyInterest += 0.01
+            bankMoney -= 0.01
         }
-        
-        var what = "=="
-        
-        for _ in 0..<Lenght {
-            what += "=="
+    } else if roundedDailyInterest.truncatingRemainder(dividingBy: 1) > 0.0 {
+        // Если округленный ежедневный доход меньше половины копейки, то округляем до 0 копеек и заносим сумму в банк
+        if bankMoney >= 0.01 {
+            bankMoney += roundedDailyInterest - roundedDailyInterest.truncatingRemainder(dividingBy: 1)
         }
-        print(what)
-        
+        finalDailyInterest = roundedDailyInterest - roundedDailyInterest.truncatingRemainder(dividingBy: 1)
     }
     
-    func scoreWin (score: Int) -> Bool {
-        return score == Lenght ? true : false
-    }
+    // Обновляем сумму на счете
+    principal += finalDailyInterest
     
-    func nexPoint(i: Int, j: Int, forType: Types) -> Int {
-        
-        var score = 1
-        
-        for k in 1...Lenght {
-            if dict["\(j+k).\(i)"] == forType {
-                
-                score += 1
-                if score == lenghtWin {
-                    for k in 0..<Lenght {
-                        
-                        dict["\(j+k).\(i)"] = Types.vin
-                    }
-                    
-                    return score
-                }
-                
-            } else {
-                score = 1
-                break
-            }
-        }
-        
-        for k in 1...Heihght {
-            if dict["\(j).\(i+k)"] == forType {
-                
-                score += 1
-                if score == lenghtWin {
-                    for k in 0..<Heihght {
-                        
-                        dict["\(j).\(i+k)"] = Types.vin
-                    }
-                    
-                    return score
-                }
-                
-            } else {
-                score = 1
-                break
-            }
-        }
-        
-        for k in 1...Heihght {
-            if dict["\(j+k).\(i+k)"] == forType {
-                
-                score += 1
-                if score == lenghtWin {
-                    for k in 0..<Heihght {
-                        
-                        dict["\(j+k).\(i+k)"] = Types.vin
-                    }
-                    
-                    return score
-                }
-                
-            } else {
-                score = 1
-                break
-            }
-        }
-        
-        for k in 1...Heihght {
-            if dict["\(j-k).\(i+k)"] == forType {
-                
-                score += 1
-                if score == lenghtWin {
-                    for k in 0..<Heihght {
-                        
-                        dict["\(j-k).\(i+k)"] = Types.vin
-                    }
-                    
-                    return score
-                }
-                
-            } else {
-                score = 1
-                break
-            }
-        }
-        return score
-    }
-    
-    func winOrNo() {
-        var countVoid = 0
-        
-        for i in 1...Heihght {
-            for j in 1...Lenght {
-                
-                switch dict["\(j).\(i)"] {
-                    case nil: countVoid += 1 
-                    case .cross : if scoreWin(score: nexPoint(i: i, j: j, forType: .cross)) {
-                        print("cross win")
-                        printField()
-                    }
-                    case .zero : if scoreWin(score: nexPoint(i: i, j: j, forType: .zero)) {
-                        print("zero win")
-                        printField()
-                    }
-                    default: break
-                }
-            }
-        }
-        if countVoid == 0 {
-            print("no one win")
-        }
-    }
-    
-    subscript(x: Int, y: Int) -> Types? {
-        
-        get {
-            return dict[key(xKey: x, yKey: y)]
-        }
-        set {
-            if dict["hello"] != newValue || dict["hello"] == nil {
-                if(x>0 && x<Lenght + 1) && (y < 0 && y < Heihght + 1) {
-                    if dict[key(xKey: x, yKey: y)] == .void || dict[key(xKey: x, yKey: y)] == nil {
-                        
-                        dict[key(xKey: x, yKey: y)] = newValue
-                        dict["hello"] = newValue
-                        printField()
-                        winOrNo()
-                    } else {
-                        print("wrong")
-                    }
-                } else {
-                    print("out of range")
-                }
-            } else {
-                print("not ur time")
-            }
-        }
-    }
+    return finalDailyInterest
 }
 
-var field = Field()
+var principalAmount = 100000.0 // Пример начальной суммы вклада
+var accountBalance = principalAmount
+var bankMoney = 100000.0 // Деньги в банке
 
-
-
-enum CColor : String {
-    case black = "black"
-    case white = "white"
-    case yellow = "yellow"
+for day in 1...367 {
+    let dailyInterest = calculateDailyInterest(principal: &accountBalance, bankMoney: &bankMoney)
+    print("День \(day): Ежедневный доход: \(dailyInterest) rub, Сумма на счете: \(accountBalance) rub")
 }
-
-class Car {
-    var mark : String
-    var year : Int
-    var color : CColor
-    var speed : Int
-    
-    func printCar() {
-        Swift.print("your car has: speed: \(speed) \ncolor: \(color)\n year of date: \(year) and mark is: \(mark)")
-    }
-    
-    init(mark: String, year: Int, color: CColor, speed: Int) {
-        self.mark = mark
-        self.year = year
-        self.color = color
-        self.speed = speed
-    }
-}
-
-
-
-var ccc = Car(mark: "ferrari", year: 1999, color: .black, speed: 356)
-
-ccc.printCar()
-
